@@ -90,6 +90,6 @@ async def invite(ctx):
 
 @client.command()
 async def help(ctx):
-    await ctx.send("**Hive stats bot (unofficial)**```html\nPrefix: hive!\n\nskywars <Username> - view a player's skywars stats\ntreasurewars <Username> - view a player's treasure wars stats\nsurvivalgames <Username> - view a player's survival games stats\nhelp - view this\ninvite - add the bot to your server\nbotstats - check bot's stats```\nCheck out Anata, our partner bot! https://discord.com/oauth2/authorize?client_id=797131364817174530&scope=bot&permissions=2147483647")
+    await ctx.send("**Hive stats bot (unofficial)**```html\nPrefix: hive!\n\nskywars <Username> - view a player's skywars stats\ntreasurewars <Username> - view a player's treasure wars stats\nsurvivalgames <Username> - view a player's survival games stats\nhelp - view this\ninvite - add the bot to your server\nbotstats - check bot's stats\nNeed help? https://discord.gg/sWxV7WajhW```\nCheck out Anata, our partner bot! https://discord.com/oauth2/authorize?client_id=797131364817174530&scope=bot&permissions=2147483647")
 
 client.run(os.environ['token'])
