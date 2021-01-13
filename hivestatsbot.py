@@ -1,6 +1,7 @@
 import discord
 import requests
 import json
+import os
 from discord.ext import commands
 from discord.ext.commands import MissingRequiredArgument
 
@@ -66,4 +67,4 @@ async def invite(ctx):
 async def help(ctx):
     await ctx.send("**Hive stats bot (unofficial)**```html\nPrefix: hive!\n\nskywars <Username> - view a player's skywars stats\ntreasurewars <Username> - view a player's treasure wars stats\nhelp - view this\ninvite - add the bot to your server```")
 
-client.run("NotARealToken")
+client.run(os.environ['token'])
