@@ -67,7 +67,7 @@ async def survivalgames(ctx, username):
 
 @client.command()
 async def botstats(ctx):
-    ctx.send("Bot is in" + str(len(client.guilds)) + "servers!")
+    await ctx.send("Bot is in" + str(len(client.guilds)) + "servers!")
 
 @survivalgames.error
 async def skywars_error(ctx, error):
