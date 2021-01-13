@@ -66,4 +66,4 @@ async def invite(ctx):
 async def help(ctx):
     await ctx.send("**Hive stats bot (unofficial)**```html\nPrefix: hive!\n\nskywars <Username> - view a player's skywars stats\ntreasurewars <Username> - view a player's treasure wars stats\nhelp - view this\ninvite - add the bot to your server```")
 
-client.run("Nzk3NDk3ODI3MTE4Mjg0ODYw.X_nVug.cjciUaxar2XZZ2TrlwdRDiofiWs")
+client.run("NotARealToken")
