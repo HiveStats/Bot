@@ -65,6 +65,10 @@ async def survivalgames(ctx, username):
     kdr = data["kills"] / losses
     await ctx.send("**Survival Games stats for " + username + "**\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr))
 
+@client.command()
+async def botstats(ctx):
+    ctx.send("Bot is in" + client.guilds.count() + "servers!")
+
 @survivalgames.error
 async def skywars_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
