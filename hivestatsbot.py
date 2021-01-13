@@ -28,7 +28,7 @@ async def skywars(ctx, username): # register command
     losses = data["played"] - data["victories"] # calculate losses
     win_loss = (data["victories"] / data["played"]) * 100 # calculate win rate
     kdr = data["kills"] / losses # calculate KDR
-    await ctx.send("**Skywars stats for " + username + "**\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr))
+    await ctx.send("**Skywars stats for " + username + "**\n```XP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr) + "```")
 
 
 @client.command(aliases=['tw'])
@@ -46,7 +46,7 @@ async def treasurewars(ctx, username):
     losses = data["played"] - data["victories"]
     win_loss = (data["victories"] / data["played"]) * 100
     kdr = data["kills"] / data["deaths"]
-    await ctx.send("**Treasure Wars stats for " + username + "**\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nFinal Kills: " + str(data["final_kills"]) + "\nTreasures Destroyed: " + str(data["treasure_destroyed"]) + "\nKDR: " + str(kdr))
+    await ctx.send("**Treasure Wars stats for " + username + "**\n```XP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nFinal Kills: " + str(data["final_kills"]) + "\nTreasures Destroyed: " + str(data["treasure_destroyed"]) + "\nKDR: " + str(kdr)+ "```")
 
 @client.command(aliases=['sg'])
 async def survivalgames(ctx, username):
@@ -63,7 +63,7 @@ async def survivalgames(ctx, username):
     losses = data["played"] - data["victories"]
     win_loss = (data["victories"] / data["played"]) * 100
     kdr = data["kills"] / losses
-    await ctx.send("**Survival Games stats for " + username + "**\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr))
+    await ctx.send("**Survival Games stats for " + username + "**\n```XP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr) + "```")
 
 @client.command()
 async def botstats(ctx):
