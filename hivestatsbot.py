@@ -3,7 +3,6 @@ import requests
 import json
 import os
 from discord.ext import commands
-from discord.ext.commands import MissingRequiredArgument
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 client = commands.Bot(command_prefix = 'hive!', intents = intents)
@@ -29,7 +28,7 @@ async def skywars(ctx, username): # register command
     losses = data["played"] - data["victories"] # calculate losses
     win_loss = (data["victories"] / data["played"]) * 100 # calculate win rate
     kdr = data["kills"] / losses # calculate KDR
-    await ctx.send("**Skywars stats for " + username + "**\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nKills: " + str(data["kills"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKDR: " + str(kdr))
+    await ctx.send("**Skywars stats for " + username + "**\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr))
 
 
 @client.command(aliases=['tw'])
@@ -49,6 +48,28 @@ async def treasurewars(ctx, username):
     kdr = data["kills"] / data["deaths"]
     await ctx.send("**Treasure Wars stats for " + username + "**\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nFinal Kills: " + str(data["final_kills"]) + "\nTreasures Destroyed: " + str(data["treasure_destroyed"]) + "\nKDR: " + str(kdr))
 
+@client.command(aliases=['sg'])
+async def survivalgames(ctx, username):
+    print("Connecting to api.playhive.com...")
+    print("Requested Username: " + username)
+    print("Requested Game: Survival Games")
+    json_data = requests.get("https://api.playhive.com/v0/game/all/sg/" + username)
+    print("Connected! Response status code")
+    print("JSON: " + str(json_data.json()))
+    data = json.loads(json_data.text)
+    print("Python dict:")
+    print(data)
+    print("Data type: " + str(type(data)))
+    losses = data["played"] - data["victories"]
+    win_loss = (data["victories"] / data["played"]) * 100
+    kdr = data["kills"] / losses
+    await ctx.send("**Survival Games stats for " + username + "**\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr))
+
+@survivalgames.error
+async def skywars_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Usage: ```html\nhive!survivalgames <Username>\n```")
+
 @skywars.error
 async def skywars_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
@@ -65,6 +86,6 @@ async def invite(ctx):
 
 @client.command()
 async def help(ctx):
-    await ctx.send("**Hive stats bot (unofficial)**```html\nPrefix: hive!\n\nskywars <Username> - view a player's skywars stats\ntreasurewars <Username> - view a player's treasure wars stats\nhelp - view this\ninvite - add the bot to your server```")
+    await ctx.send("**Hive stats bot (unofficial)**```html\nPrefix: hive!\n\nskywars <Username> - view a player's skywars stats\ntreasurewars <Username> - view a player's treasure wars stats\nsurvivalgames <Username> - view a player's survival games stats\nhelp - view this\ninvite - add the bot to your server```")
 
 client.run(os.environ['token'])
