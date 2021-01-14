@@ -76,7 +76,7 @@ async def skywarsleaderboard(ctx):
     print("Python dict:")
     print(data)
     print("Data type: " + str(type(data)))
-    await ctx.send("**Skywars Leaderboard**\n```\n#1 " + data()[0])
+    await ctx.send("**Skywars Leaderboard**\n```\n#1 " + data[0]['username'])
 
 @client.command()
 async def botstats(ctx):
