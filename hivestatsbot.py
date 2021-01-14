@@ -65,6 +65,19 @@ async def survivalgames(ctx, username):
     kdr = data["kills"] / losses
     await ctx.send("**Survival Games stats for " + username + "**\n```py\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr) + "```")
 
+@client.command(aliases=['swlb'])
+async def skywarsleaderboard(ctx):
+    print("Connecting to api.playhive.com...")
+    print("Requested Game: Skywars Leaderboard")
+    json_data = requests.get("https://api.playhive.com/v0/game/all/sky")
+    print("Connected! Response status code")
+    print("JSON: " + str(json_data.json()))
+    data = json.loads(json_data.text)
+    print("Python dict:")
+    print(data)
+    print("Data type: " + str(type(data)))
+    await ctx.send("**Skywars Leaderboard**\n```\n#1 " + data()[0])
+
 @client.command()
 async def botstats(ctx):
     await ctx.send("Bot is in " + str(len(client.guilds)) + " servers!")
