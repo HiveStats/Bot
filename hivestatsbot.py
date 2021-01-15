@@ -161,7 +161,7 @@ async def invite(ctx):
 @client.command(aliases=['fb'])
 async def feedback(ctx, *, message):
     owner = client.get_user(561492314862780427)
-    channel = await owner.create_dm
+    channel = owner.create_dm
     channel.send(ctx.author.mention + " sent feedback: " + message)
 
 @client.command()
