@@ -162,7 +162,7 @@ async def invite(ctx):
 async def feedback(ctx, *, message):
     owner = client.get_user(561492314862780427)
     await owner.send(ctx.author.name + "#" + str(ctx.author.discriminator) + "(" + str(ctx.author.id) + ")" " sent feedback: " + message)
-    await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nFeedback sent! Thanks!\n\"message\"\nPlease don\'t spam it!")
+    await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nFeedback sent! Thanks!\n\"message\"\nPlease don\'t spam it!```")
 @client.command()
 async def help(ctx):
     await ctx.send("**Hive stats bot (unofficial)**"
@@ -173,7 +173,8 @@ async def help(ctx):
                    "skywarsleaderboard - check the top 10 skywars players (Beta)\n"
                    "help - view this\n"
                    "invite - add the bot to your server\n"
-                   "botstats - check bot's stats```\n"
+                   "botstats - check bot's stats\n"
+                   "feedback <message>```\n"
                    "**YOU NEED TO USE \"username with spaces\" IF A USERNAME HAS SPACES IN IT!**\n"
                    "Need help? https://discord.gg/sWxV7WajhW\n"
                    "\nCheck out Anata, our partner bot! <https://bit.ly/3nL4SYG>")
