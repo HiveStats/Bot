@@ -89,7 +89,7 @@ async def skywarsleaderboard(ctx):
                    + "\n#10 " + data[9]['username'] + "(" + str(data[9]['victories']) + " Wins)```")
 
 @client.command(aliases=['twlb'])
-async def skywarsleaderboard(ctx):
+async def treasurewarsleaderboard(ctx):
     print("Connecting to api.playhive.com...")
     print("Requested Game: Treasure Wars Leaderboard")
     json_data = requests.get("https://api.playhive.com/v0/game/all/wars")
