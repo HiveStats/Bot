@@ -19,7 +19,7 @@ async def skywars(ctx, username): # register command
     print("Requested Username: " + username)
     print("Requested Game: Skywars")
     json_data = requests.get("https://api.playhive.com/v0/game/all/sky/" + username) # lookup player data
-    print("Connected! Response status code: " + json_data.status_code)
+    print("Connected! Response status code: " + str(json_data.status_code))
     print("JSON: " + str(json_data.json())) # print JSON in console
     data = json.loads(json_data.text) # convert JSON to python dict
     print("Python dict:")
@@ -37,7 +37,7 @@ async def treasurewars(ctx, username):
     print("Requested Username: " + username)
     print("Requested Game: Treasure Wars")
     json_data = requests.get("https://api.playhive.com/v0/game/all/wars/" + username)
-    print("Connected! Response status code: " + json_data.status_code)
+    print("Connected! Response status code: " + str(json_data.status_code))
     print("JSON: " + str(json_data.json()))
     data = json.loads(json_data.text)
     print("Python dict:")
@@ -54,7 +54,7 @@ async def survivalgames(ctx, username):
     print("Requested Username: " + username)
     print("Requested Game: Survival Games")
     json_data = requests.get("https://api.playhive.com/v0/game/all/sg/" + username)
-    print("Connected! Response status code: " + json_data.status_code)
+    print("Connected! Response status code: " + str(json_data.status_code))
     print("JSON: " + str(json_data.json()))
     data = json.loads(json_data.text)
     print("Python dict:")
@@ -70,7 +70,7 @@ async def skywarsleaderboard(ctx):
     print("Connecting to api.playhive.com...")
     print("Requested Game: Skywars Leaderboard")
     json_data = requests.get("https://api.playhive.com/v0/game/all/sky")
-    print("Connected! Response status code: "  + json_data.status_code)
+    print("Connected! Response status code: "  + str(json_data.status_code))
     print("JSON: " + str(json_data.json()))
     data = json.loads(json_data.text) # should return a list
     print("Python:")
@@ -93,7 +93,7 @@ async def treasurewarsleaderboard(ctx):
     print("Connecting to api.playhive.com...")
     print("Requested Game: Treasure Wars Leaderboard")
     json_data = requests.get("https://api.playhive.com/v0/game/all/wars")
-    print("Connected! Response status code: " + json_data.status_code)
+    print("Connected! Response status code: " + str(json_data.status_code))
     print("JSON: " + str(json_data.json()))
     data = json.loads(json_data.text) # should return a list
     print("Python:")
