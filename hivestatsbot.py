@@ -162,7 +162,7 @@ async def invite(ctx):
 async def feedback(ctx, *, message):
     owner = client.get_user(561492314862780427)
     await owner.send(ctx.author.name + "#" + ctx.author.discriminator + "(" + ctx.author.id + ")" " sent feedback: " + message)
-
+    await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nFeedback sent! Thanks!\n\"message\"\nPlease don\'t spam it!")
 @client.command()
 async def help(ctx):
     await ctx.send("**Hive stats bot (unofficial)**"
