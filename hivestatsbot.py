@@ -111,6 +111,29 @@ async def treasurewarsleaderboard(ctx):
                    + "\n#9 " + data[8]['username'] + "(" + str(data[8]['victories']) + " Wins)"
                    + "\n#10 " + data[9]['username'] + "(" + str(data[9]['victories']) + " Wins)```")
 
+@client.command(aliases=['sglb'])
+async def survivalgamesleaderboard(ctx):
+    print("Connecting to api.playhive.com...")
+    print("Requested Game: Survival Games Leaderboard")
+    json_data = requests.get("https://api.playhive.com/v0/game/all/sg")
+    print("Connected! Response status code: " + str(json_data.status_code))
+    print("JSON: " + str(json_data.json()))
+    data = json.loads(json_data.text) # should return a list
+    print("Python:")
+    print(data)
+    print("Data type: " + str(type(data)))
+    await ctx.send("**Treasure Wars Leaderboard**\n```ahk\n"
+                   "#1 " + data[0]['username'] + "(" + str(data[0]['victories']) + " Wins)"
+                   + "\n#2 " + data[1]['username'] + "(" + str(data[1]['victories']) + " Wins)"
+                   + "\n#3 " + data[2]['username'] + "(" + str(data[2]['victories']) + " Wins)"
+                   + "\n#4 " + data[3]['username'] + "(" + str(data[3]['victories']) + " Wins)"
+                   + "\n#5 " + data[4]['username'] + "(" + str(data[4]['victories']) + " Wins)"
+                   + "\n#6 " + data[5]['username'] + "(" + str(data[5]['victories']) + " Wins)"
+                   + "\n#7 " + data[6]['username'] + "(" + str(data[6]['victories']) + " Wins)"
+                   + "\n#8 " + data[7]['username'] + "(" + str(data[7]['victories']) + " Wins)"
+                   + "\n#9 " + data[8]['username'] + "(" + str(data[8]['victories']) + " Wins)"
+                   + "\n#10 " + data[9]['username'] + "(" + str(data[9]['victories']) + " Wins)```")
+
 @client.command()
 async def botstats(ctx):
     await ctx.send("Bot is in " + str(len(client.guilds)) + " servers!")
