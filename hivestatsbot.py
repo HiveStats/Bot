@@ -76,7 +76,7 @@ async def skywarsleaderboard(ctx):
     print("Python dict:")
     print(data)
     print("Data type: " + str(type(data)))
-    await ctx.send("**Skywars Leaderboard**\n```\n#1 " + data[0]['username'] + "(" + data[0]['victories']) + " Wins)" + "\n#2 " + data[1]['username'] + "(" + data[1]['victories'] + " Wins)" + "\n#3 " + data[2]['username'] + "(" + data[2]['victories'] + " Wins)" + "\n#4 " + data[3]['username'] + "(" + data[3]['victories'] + " Wins)" + "\n#5 " + data[4]['username'] + "(" + data[4]['victories'] + " Wins)" + "\n#6 " + data[5]['username'] + "(" + data[5]['victories'] + " Wins)" + "\n#7 " + data[6]['username'] + "(" + data[6]['victories'] + " Wins)" + "\n#8 " + data[7]['username'] + "(" + data[7]['victories'] + " Wins)" + "\n#9 " + data[8]['username'] + "(" + data[8]['victories'] + " Wins)" + "\n#10 " + data[9]['username'] + "(" + data[9]['victories'] + " Wins)"
+    await ctx.send("**Skywars Leaderboard**\n```py\n#1 " + data[0]['username'] + "(" + data[0]['victories']) + " Wins)" + "\n#2 " + data[1]['username'] + "(" + data[1]['victories'] + " Wins)" + "\n#3 " + data[2]['username'] + "(" + data[2]['victories'] + " Wins)" + "\n#4 " + data[3]['username'] + "(" + data[3]['victories'] + " Wins)" + "\n#5 " + data[4]['username'] + "(" + data[4]['victories'] + " Wins)" + "\n#6 " + data[5]['username'] + "(" + data[5]['victories'] + " Wins)" + "\n#7 " + data[6]['username'] + "(" + data[6]['victories'] + " Wins)" + "\n#8 " + data[7]['username'] + "(" + data[7]['victories'] + " Wins)" + "\n#9 " + data[8]['username'] + "(" + data[8]['victories'] + " Wins)" + "\n#10 " + data[9]['username'] + "(" + data[9]['victories'] + " Wins```)"
 
 @client.command()
 async def botstats(ctx):
