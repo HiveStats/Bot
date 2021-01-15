@@ -162,7 +162,7 @@ async def invite(ctx):
 async def feedback(ctx, *, message):
     owner = client.get_user(561492314862780427)
     channel = owner.create_dm
-    owner.send(ctx.author.mention + " sent feedback: " + message)
+    await owner.send(ctx.author.mention + " sent feedback: " + message)
 
 @client.command()
 async def help(ctx):
