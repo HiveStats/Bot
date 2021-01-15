@@ -122,7 +122,7 @@ async def survivalgamesleaderboard(ctx):
     print("Python:")
     print(data)
     print("Data type: " + str(type(data)))
-    await ctx.send("**Treasure Wars Leaderboard**\n```ahk\n"
+    await ctx.send("**Survival Games Leaderboard**\n```ahk\n"
                    "#1 " + data[0]['username'] + "(" + str(data[0]['victories']) + " Wins)"
                    + "\n#2 " + data[1]['username'] + "(" + str(data[1]['victories']) + " Wins)"
                    + "\n#3 " + data[2]['username'] + "(" + str(data[2]['victories']) + " Wins)"
