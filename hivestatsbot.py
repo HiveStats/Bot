@@ -158,6 +158,12 @@ async def invite(ctx):
     await ctx.send("**Hive stats bot (unofficial)**\nAdd to your server: "
                    "https://discord.com/api/oauth2/authorize?client_id=797497827118284860&permissions=8&scope=bot")
 
+@client.command(aliases=['fb'])
+async def feedback(ctx, *, message):
+    owner = client.get_user(561492314862780427)
+    channel = await owner.create_dm
+    channel.send(ctx.author.mention + " sent feedback: " + message)
+
 @client.command()
 async def help(ctx):
     await ctx.send("**Hive stats bot (unofficial)**"
