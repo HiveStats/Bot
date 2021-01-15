@@ -180,7 +180,7 @@ async def help(ctx):
                    "help - view this\n"
                    "invite - add the bot to your server\n"
                    "botstats - check bot's stats\n"
-                   "feedback <Message>```\n"
+                   "feedback <Message> - send me some feedback on what to add/change with the bot```\n"
                    "**YOU NEED TO USE \"username with spaces\" IF A USERNAME HAS SPACES IN IT!**\n"
                    "Need help? https://discord.gg/sWxV7WajhW\n"
                    "\nCheck out Anata, our partner bot! <https://bit.ly/3nL4SYG>")
