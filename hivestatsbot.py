@@ -153,11 +153,6 @@ async def treasurewars_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Usage: ```html\nhive!treasurewars <Username>\n```")
 
-@feedback.error
-async def feedback_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Usage: ```html\nhive!feedback <Message>\n```")
-
 @client.command()
 async def invite(ctx):
     await ctx.send("**Hive stats bot (unofficial)**\nAdd to your server: "
@@ -168,6 +163,12 @@ async def feedback(ctx, *, message):
     owner = client.get_user(561492314862780427)
     await owner.send(ctx.author.name + "#" + str(ctx.author.discriminator) + "(" + str(ctx.author.id) + ")" " sent feedback: " + message)
     await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nFeedback sent! Thanks!\n\"" + message + "\"\nPlease don\'t spam it!```")
+
+@feedback.error
+async def feedback_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Usage: ```html\nhive!feedback <Message>\n```")
+
 @client.command()
 async def help(ctx):
     await ctx.send("**Hive stats bot (unofficial)**"
