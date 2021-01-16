@@ -150,7 +150,8 @@ async def pvp(ctx, username):
     sg_deaths = sg_data['played'] - sg_data['victories']
     total_deaths = sw_deaths + sg_deaths + tw_data['deaths']
     total_kdr = total_kills / total_deaths
-    print("**Whole-network PvP stats for " + username + "**\n```py\nKills: " + total_kills + "\nDeaths: " + total_deaths + "\nKDR: " + total_kdr + "```\nStats for the entire Hive network.")
+    ctx.send("**Whole-network PvP stats for " + username + "**\n```py\nKills: " + str(total_kills) + "\nDeaths: " + str(total_deaths) + "\nKDR: " + str(total_kdr) + "```\nStats for the entire Hive network.")
+
 @client.command()
 async def botstats(ctx):
     await ctx.send("Bot is in " + str(len(client.guilds)) + " servers!")
@@ -175,6 +176,11 @@ async def invite(ctx):
     await ctx.send("**Hive stats bot (unofficial)**\nAdd to your server: "
                    "https://discord.com/api/oauth2/authorize?client_id=797497827118284860&permissions=8&scope=bot")
 
+@pvp.error()
+async def pvp_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Usage: ```html\nhive!pvp <Username>\n```")
+
 @client.command(aliases=['fb'])
 async def feedback(ctx, *, message):
     owner = client.get_user(561492314862780427)
@@ -193,7 +199,10 @@ async def help(ctx):
                    "skywars <Username> - view a player's skywars stats\n"
                    "treasurewars <Username> - view a player's treasure wars stats\n"
                    "survivalgames <Username> - view a player's survival games stats\n"
-                   "skywarsleaderboard - check the top 10 skywars players (Beta)\n"
+                   "skywarsleaderboard - check the top 10 skywars players\n"
+                   "treasurewarsleaderboard - check the top 10 treasure wars players\n"
+                   "survivalgamesleaderboard - check the top 10 survival games players\n"
+                   "pvp <Username> - check a player's whole network kills, deaths and KDR\n"
                    "help - view this\n"
                    "invite - add the bot to your server\n"
                    "botstats - check bot's stats\n"
