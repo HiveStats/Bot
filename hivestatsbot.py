@@ -150,7 +150,7 @@ async def pvp(ctx, username):
     sg_deaths = sg_data['played'] - sg_data['victories']
     total_deaths = sw_deaths + sg_deaths + tw_data['deaths']
     total_kdr = total_kills / total_deaths
-    ctx.send("**Whole-network PvP stats for " + username + "**\n```py\nKills: " + str(total_kills) + "\nDeaths: " + str(total_deaths) + "\nKDR: " + str(total_kdr) + "```\nStats for the entire Hive network.")
+    await ctx.send("**Whole-network PvP stats for " + username + "**\n```py\nKills: " + str(total_kills) + "\nDeaths: " + str(total_deaths) + "\nKDR: " + str(total_kdr) + "```\nStats for the entire Hive network.")
 
 @client.command()
 async def botstats(ctx):
