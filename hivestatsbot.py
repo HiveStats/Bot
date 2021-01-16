@@ -1,7 +1,7 @@
 import discord
 import requests
 import json
-import os # for heroku
+import os  # for heroku
 from discord.ext import commands
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
@@ -14,20 +14,20 @@ async def on_ready():
     await client.change_presence(activity=discord.Activity(name='for hive!help', type=3))
 
 @client.command(aliases=['sw'])
-async def skywars(ctx, username): # register command
+async def skywars(ctx, username):  # register command
     print("Connecting to api.playhive.com...")
     print("Requested Username: " + username)
     print("Requested Game: Skywars")
-    json_data = requests.get("https://api.playhive.com/v0/game/all/sky/" + username) # lookup player data
+    json_data = requests.get("https://api.playhive.com/v0/game/all/sky/" + username)  # lookup player data
     print("Connected! Response status code: " + str(json_data.status_code))
-    print("JSON: " + str(json_data.json())) # print JSON in console
-    data = json.loads(json_data.text) # convert JSON to python dict
+    print("JSON: " + str(json_data.json()))  # print JSON in console
+    data = json.loads(json_data.text)  # convert JSON to python dict
     print("Python dict:")
-    print(data) # print python dict to console
-    print("Data type: " + str(type(data))) # print data type to console (confirming if it is a dict)
-    losses = data["played"] - data["victories"] # calculate losses
-    win_loss = (data["victories"] / data["played"]) * 100 # calculate win rate
-    kdr = data["kills"] / losses # calculate KDR
+    print(data)  # print python dict to console
+    print("Data type: " + str(type(data)))  # print data type to console (confirming if it is a dict)
+    losses = data["played"] - data["victories"]  # calculate losses
+    win_loss = (data["victories"] / data["played"]) * 100  # calculate win rate
+    kdr = data["kills"] / losses  # calculate KDR
     await ctx.send("**Skywars stats for " + username + "**\n```py\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr) + "```")
 
 
@@ -138,17 +138,19 @@ async def survivalgamesleaderboard(ctx):
 async def pvp(ctx, username):
     print("Connecting to api.playhive.com...")
     print("Requested Game: Total Kills")
-    sg_json_data = requests.get("https://api.playhive.com/v0/game/all/sg"/ + username)
+    sg_json_data = requests.get("https://api.playhive.com/v0/game/all/sg/" + username)
     sw_json_data = requests.get("https://api.playhive.com/v0/game/all/sky/" + username)
     tw_json_data = requests.get("https://api.playhive.com/v0/game/all/wars/" + username)
-    print("Connected!")
-    sg_data = json.loads(sg_json_data.json)
-    sw_data = json.loads(sw_json_data.json)
-    tw_data = json.loads(tw_json_data.json)
+    print("Connected! got all sg, sky and wars data for player!")
+    sg_data = json.loads(sg_json_data.text)
+    sw_data = json.loads(sw_json_data.text)
+    tw_data = json.loads(tw_json_data.text)
     total_kills = sg_data['kills'] + sw_data['kills'] + tw_data['kills']
-    total_wins = sg_data['victories'] + sw_data['victories'] + tw_data['victories']
-    total_played = sg_data['played'] + sw_data['played'] + tw_data['played']
-    total_losses = total_played - total_wins
+    sw_deaths = sw_data['played'] - sw_data['victories']
+    sg_deaths = sg_data['played'] - sg_data['victories']
+    total_deaths = sw_deaths + sg_deaths + tw_data['deaths']
+    total_kdr = total_kills / total_deaths
+    print("**Whole-network PvP stats for " + username + "**\n```py\nKills: " + total_kills + "\nDeaths: " + total_deaths + "\nKDR: " + total_kdr + "```\nStats for the entire Hive network.")
 @client.command()
 async def botstats(ctx):
     await ctx.send("Bot is in " + str(len(client.guilds)) + " servers!")
