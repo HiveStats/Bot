@@ -5,7 +5,7 @@ import os # for heroku
 from discord.ext import commands
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
-client = commands.Bot(command_prefix = 'hive!', intents = intents)
+client = commands.Bot(command_prefix = ['Hive!', 'hive!'], intents = intents)
 client.remove_command("help")
 
 @client.event
@@ -134,6 +134,21 @@ async def survivalgamesleaderboard(ctx):
                    + "\n#9 " + data[8]['username'] + "(" + str(data[8]['victories']) + " Wins)"
                    + "\n#10 " + data[9]['username'] + "(" + str(data[9]['victories']) + " Wins)```")
 
+@client.command()
+async def pvp(ctx, username):
+    print("Connecting to api.playhive.com...")
+    print("Requested Game: Total Kills")
+    sg_json_data = requests.get("https://api.playhive.com/v0/game/all/sg"/ + username)
+    sw_json_data = requests.get("https://api.playhive.com/v0/game/all/sky/" + username)
+    tw_json_data = requests.get("https://api.playhive.com/v0/game/all/wars/" + username)
+    print("Connected!")
+    sg_data = json.loads(sg_json_data.json)
+    sw_data = json.loads(sw_json_data.json)
+    tw_data = json.loads(tw_json_data.json)
+    total_kills = sg_data['kills'] + sw_data['kills'] + tw_data['kills']
+    total_wins = sg_data['victories'] + sw_data['victories'] + tw_data['victories']
+    total_played = sg_data['played'] + sw_data['played'] + tw_data['played']
+    total_losses = total_played - total_wins
 @client.command()
 async def botstats(ctx):
     await ctx.send("Bot is in " + str(len(client.guilds)) + " servers!")
