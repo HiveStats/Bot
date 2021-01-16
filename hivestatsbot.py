@@ -176,7 +176,7 @@ async def invite(ctx):
     await ctx.send("**Hive stats bot (unofficial)**\nAdd to your server: "
                    "https://discord.com/api/oauth2/authorize?client_id=797497827118284860&permissions=8&scope=bot")
 
-@pvp.error()
+@pvp.error
 async def pvp_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Usage: ```html\nhive!pvp <Username>\n```")
