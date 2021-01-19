@@ -12,8 +12,8 @@ client.remove_command("help")
 async def on_ready():
     print("Bot running on {0.user}!".format(client))
     await client.change_presence(activity=discord.Activity(name='for hive!help', type=3))
-    stats = {"server-count": str(len(client.guilds))}
-    post = requests.post("https://www.motiondevelopment.top/api/bot/" + os.environ['motion_development_token'] + "/stats", stats)
+    stats = {"server-count": str(len(client.guilds)), "api-key": os.environ['motion_development_token']}
+    post = requests.post("https://www.motiondevelopment.top/api/bot/" + os.environ['motion_development_id'] + "/stats",stats)
     print("Sent server count to motiondevelopment.top!")
     print(f"Token: {os.environ['motion_development_token']}")
     print(f"Response: {post.text} Code: {post.status_code}")
