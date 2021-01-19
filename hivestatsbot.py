@@ -12,7 +12,9 @@ client.remove_command("help")
 async def on_ready():
     print("Bot running on {0.user}!".format(client))
     await client.change_presence(activity=discord.Activity(name='for hive!help', type=3))
-
+    stats = {"server-count": str(len(client.guilds))}
+    requests.post("https://www.motiondevelopment.top/api/bot/" + os.environ["motion_development_token"] + "/stats", stats)
+    print("Sent server count to motiondevelopment.top!")
 @client.command(aliases=['sw'])
 async def skywars(ctx, username):  # register command
     print("Connecting to api.playhive.com...")
