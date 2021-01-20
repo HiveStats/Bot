@@ -21,7 +21,7 @@ async def on_ready():
 @client.command()
 async def asay(ctx, *, message):
     if ctx.message.author.id == 561492314862780427:
-        await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nMessage from an admin of this bot!\n\"" + message + "```")
+        await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nMessage from an admin of this bot!\n\"" + message + "\"```")
     else:
         ctx.send("Damn son! where'd you find this?")
 
