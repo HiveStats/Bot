@@ -23,7 +23,7 @@ async def asay(ctx, *, message):
     if ctx.message.author.id == 561492314862780427:
         await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nMessage from an admin of this bot!\n\"" + message + "\"```")
     else:
-        ctx.send("Damn son! where'd you find this?")
+        await ctx.send("Damn son! where'd you find this?")
 
 @client.command(aliases=['sw'])
 async def skywars(ctx, username):  # register command
