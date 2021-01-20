@@ -17,6 +17,14 @@ async def on_ready():
     print("Sent server count to motiondevelopment.top!")
     print(f"Token: {os.environ['motion_development_token']}")
     print(f"Response: {post.text} Code: {post.status_code}")
+
+@client.command
+async def asay(ctx, *, message):
+    if ctx.message.author.id == 561492314862780427:
+        await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nMessage from an admin of this bot!\n\"" + message + "```")
+    else:
+        ctx.send("Damn son! where'd you find this?")
+
 @client.command(aliases=['sw'])
 async def skywars(ctx, username):  # register command
     print("Connecting to api.playhive.com...")
