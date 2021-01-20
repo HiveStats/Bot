@@ -204,6 +204,11 @@ async def feedback_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Usage: ```html\nhive!feedback <Message>\n```")
 
+@asay.error
+async def asay_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Usage: ```html\nhive!asay <Message>\n```")
+
 @client.command()
 async def help(ctx):
     await ctx.send("**Hive stats bot (unofficial)**"
