@@ -18,7 +18,7 @@ async def on_ready():
     print(f"Token: {os.environ['motion_development_token']}")
     print(f"Response: {post.text} Code: {post.status_code}")
 
-@client.command
+@client.command()
 async def asay(ctx, *, message):
     if ctx.message.author.id == 561492314862780427:
         await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nMessage from an admin of this bot!\n\"" + message + "```")
