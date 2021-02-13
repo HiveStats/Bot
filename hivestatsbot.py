@@ -18,7 +18,7 @@ async def on_ready():
 
 @client.command()
 async def checkvote(ctx):
-    support_server = client.get_guild(798959430162448404)
+    support_server = client.get_guild("798959430162448404")
     await ctx.send("Checking...")
     has_ctx_user_voted = await dbl_client.get_user_vote(ctx.message.author.id)
     if has_ctx_user_voted:
