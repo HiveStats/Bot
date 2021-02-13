@@ -8,7 +8,7 @@ from discord.ext import commands
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 client = commands.Bot(command_prefix = ['Hive!', 'hive!'], intents = intents)
 client.remove_command("help")
-dbl_client = dbl.DBLClient(client.user, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NzQ5NzgyNzExODI4NDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjEzMjQwNDE1fQ.JopXgJkPCcWxfhnE4qRrsupUEqVkP3p9F3hUKgxF4Jw", True)
+dbl_client = dbl.DBLClient(client, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NzQ5NzgyNzExODI4NDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjEzMjQwNDE1fQ.JopXgJkPCcWxfhnE4qRrsupUEqVkP3p9F3hUKgxF4Jw", True)
 
 @client.event
 async def on_ready():
