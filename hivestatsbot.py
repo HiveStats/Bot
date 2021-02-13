@@ -238,6 +238,6 @@ async def help(ctx):
                    "feedback <Message> - send me some feedback on what to add/change with the bot```\n"
                    "**YOU NEED TO USE \"username with spaces\" IF A USERNAME HAS SPACES IN IT!**\n"
                    "Need help? https://discord.gg/sWxV7WajhW\n"
-                   "\nCheck out Anata, our partner bot! <https://bit.ly/3nL4SYG>")
+                   "\nVote on <https://top.gg/bot/797497827118284860/vote>, then type hive!checkvote to get the Voter role in our support server!\nCheck out Anata, our partner bot! <https://bit.ly/3nL4SYG>")
 
 client.run(os.environ['token'])
