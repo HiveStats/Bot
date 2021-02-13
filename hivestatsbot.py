@@ -18,13 +18,13 @@ async def on_ready():
 
 @client.command()
 async def checkvote(ctx):
-    support_server = client.get_guild("798959430162448404")
+    support_server = client.get_guild(798959430162448404)
     await ctx.send("Checking...")
     has_ctx_user_voted = await dbl_client.get_user_vote(ctx.message.author.id)
     if has_ctx_user_voted:
         if ctx.message.author in support_server.members:
             ctx.send("You voted! You've been given the voter role in our server!")
-            await ctx.message.author.add_roles(support_server.get_role("810218550425944064"))
+            await ctx.message.author.add_roles(support_server.get_role(810218550425944064))
         else:
             await ctx.send("You voted, but you're not in our support server! You should join! https://discord.com/invite/FpY5FUSFXq")
     else:
