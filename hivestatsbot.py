@@ -14,11 +14,7 @@ dbl_client = dbl.DBLClient(client, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI
 async def on_ready():
     print("Bot running on {0.user}!".format(client))
     await client.change_presence(activity=discord.Activity(name='for hive!help', type=3))
-    stats = {"server-count": str(len(client.guilds)), "api-key": os.environ['motion_development_token']}
-    post = requests.post("https://www.motiondevelopment.top/api/bot/" + os.environ['motion_development_id'] + "/stats", data=stats, headers = { "content-type": "applications/json" })
-    print("Sent server count to motiondevelopment.top!")
-    print(f"Token: {os.environ['motion_development_token']}")
-    print(f"Response: {post.text} Code: {post.status_code}")
+
 
 @client.command()
 async def checkvote(ctx):
@@ -30,7 +26,7 @@ async def checkvote(ctx):
             ctx.send("You voted! You've been given the voter role in our server!")
             await ctx.message.author.add_roles(support_server.get_role("810218550425944064"))
         else:
-            ctx.send("You voted, but you're not in our support server! You should join! https://discord.com/invite/FpY5FUSFXq")
+            await ctx.send("You voted, but you're not in our support server! You should join! https://discord.com/invite/FpY5FUSFXq")
     else:
         await ctx.send("You didn't vote, please vote at https://top.gg/bot/797497827118284860/vote!")
 
