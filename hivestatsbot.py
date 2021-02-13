@@ -2,11 +2,13 @@ import discord
 import requests
 import json
 import os  # for heroku
+import dbl
 from discord.ext import commands
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 client = commands.Bot(command_prefix = ['Hive!', 'hive!'], intents = intents)
 client.remove_command("help")
+dbl_client = dbl.DBLClient(client.user, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NzQ5NzgyNzExODI4NDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjEzMjQwNDE1fQ.JopXgJkPCcWxfhnE4qRrsupUEqVkP3p9F3hUKgxF4Jw")
 
 @client.event
 async def on_ready():
@@ -17,6 +19,20 @@ async def on_ready():
     print("Sent server count to motiondevelopment.top!")
     print(f"Token: {os.environ['motion_development_token']}")
     print(f"Response: {post.text} Code: {post.status_code}")
+
+@client.command()
+async def checkvote(ctx):
+    support_server = client.get_guild(798959430162448404)
+    await ctx.send("Checking...")
+    has_ctx_user_voted = await dbl_client.get_user_vote(ctx.message.author.id)
+    if has_ctx_user_voted:
+        if ctx.message.author in support_server.members:
+            ctx.send("You voted! You've been given the voter role in our server!")
+            await ctx.message.author.add_roles(support_server.get_role("810218550425944064"))
+        else:
+            ctx.send("You voted, but you're not in our support server! You should join! https://discord.com/invite/FpY5FUSFXq")
+    else:
+        await ctx.send("You didn't vote, please vote at https://top.gg/bot/797497827118284860/vote!")
 
 @client.command()
 async def asay(ctx, *, message):
