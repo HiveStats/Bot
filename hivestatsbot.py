@@ -4,11 +4,22 @@ import json
 import os  # for heroku
 import dbl
 from discord.ext import commands
+import flask
+from flask import request, jsonify
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
 client = commands.Bot(command_prefix = ['Hive!', 'hive!'], intents = intents)
 client.remove_command("help")
 dbl_client = dbl.DBLClient(client, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NzQ5NzgyNzExODI4NDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjEzMjQwNDE1fQ.JopXgJkPCcWxfhnE4qRrsupUEqVkP3p9F3hUKgxF4Jw", True)
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "60 per hour", "1 per minute"]
+)
 
 @client.event
 async def on_ready():
@@ -239,5 +250,13 @@ async def help(ctx):
                    "**YOU NEED TO USE \"username with spaces\" IF A USERNAME HAS SPACES IN IT!**\n"
                    "Need help? https://discord.gg/sWxV7WajhW\n"
                    "\nVote on <https://top.gg/bot/797497827118284860/vote>, then type hive!checkvote to get the Voter role in our support server!\nCheck out Anata, our partner bot! <https://bit.ly/3nL4SYG>")
+
+@app.route('/server_count', methods=['GET'])
+def server_count():
+    formatted_server_count = {
+        "server_count": len(client.guilds)
+    }
+    return jsonify(formatted_server_count)
+
 
 client.run(os.environ['token'])
