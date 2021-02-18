@@ -260,3 +260,4 @@ def server_count():
 
 
 client.run(os.environ['token'])
+app.run(port=5000)
