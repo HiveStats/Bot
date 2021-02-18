@@ -2,3 +2,4 @@ discord
 requests
 dblpy
 flask
+flask_limiter
