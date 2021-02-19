@@ -4,46 +4,11 @@ import json
 import os  # for heroku
 import dbl
 from discord.ext import commands
-import flask
-from flask import request, jsonify
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
-import threading
 
-global client
-
-def discord_thread_function(name):
-    global client
-    global intents
-    global dbl_client
-    intents = discord.Intents(messages=True, guilds=True, reactions=True, members=True, presences=True)
-    client = commands.Bot(command_prefix=['Hive!', 'hive!'], intents=intents)
-    client.remove_command("help")
-    dbl_client = dbl.DBLClient(client,
-                               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NzQ5NzgyNzExODI4NDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjEzMjQwNDE1fQ.JopXgJkPCcWxfhnE4qRrsupUEqVkP3p9F3hUKgxF4Jw",
-                               True)
-    client.run(os.environ['token'])
-
-
-def api_thread_function(name):
-    global app
-    global limiter
-    app = flask.Flask(__name__)
-    app.config["DEBUG"] = True
-    limiter = Limiter(
-        app,
-        key_func=get_remote_address,
-        default_limits=["200 per day", "60 per hour", "1 per minute"]
-    )
-    app.run()
-
-
-discord_thread = threading.Thread(target=discord_thread_function, args=(1,))
-discord_thread.start()
-
-api_thread = threading.Thread(target=api_thread_function, args=(2,))
-api_thread.start()
-
+intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
+client = commands.Bot(command_prefix = ['Hive!', 'hive!'], intents = intents)
+client.remove_command("help")
+dbl_client = dbl.DBLClient(client, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NzQ5NzgyNzExODI4NDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjEzMjQwNDE1fQ.JopXgJkPCcWxfhnE4qRrsupUEqVkP3p9F3hUKgxF4Jw", True)
 
 @client.event
 async def on_ready():
@@ -61,20 +26,16 @@ async def checkvote(ctx):
             await ctx.send("You voted! You've been given the voter role in our server!")
             await ctx.message.author.add_roles(support_server.get_role(810218550425944064))
         else:
-            await ctx.send(
-                "You voted, but you're not in our support server! You should join! https://discord.com/invite/FpY5FUSFXq")
+            await ctx.send("You voted, but you're not in our support server! You should join! https://discord.com/invite/FpY5FUSFXq")
     else:
         await ctx.send("You didn't vote, please vote at https://top.gg/bot/797497827118284860/vote!")
-
 
 @client.command()
 async def asay(ctx, *, message):
     if ctx.message.author.id == 561492314862780427:
-        await ctx.send(
-            "**Hive stats bot (unofficial)**\n```ahk\nMessage from an admin of this bot!\n\"" + message + "\"```")
+        await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nMessage from an admin of this bot!\n\"" + message + "\"```")
     else:
         await ctx.send("Damn son! where'd you find this?")
-
 
 @client.command(aliases=['sw'])
 async def skywars(ctx, username):  # register command
@@ -91,9 +52,7 @@ async def skywars(ctx, username):  # register command
     losses = data["played"] - data["victories"]  # calculate losses
     win_loss = (data["victories"] / data["played"]) * 100  # calculate win rate
     kdr = data["kills"] / losses  # calculate KDR
-    await ctx.send("**Skywars stats for " + username + "**\n```py\nXP: " + str(data["xp"]) + "\nWins: " + str(
-        data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (
-                       str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr) + "```")
+    await ctx.send("**Skywars stats for " + username + "**\n```py\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr) + "```")
 
 
 @client.command(aliases=['tw'])
@@ -111,12 +70,7 @@ async def treasurewars(ctx, username):
     losses = data["played"] - data["victories"]
     win_loss = (data["victories"] / data["played"]) * 100
     kdr = data["kills"] / data["deaths"]
-    await ctx.send("**Treasure Wars stats for " + username + "**\n```py\nXP: " + str(data["xp"]) + "\nWins: " + str(
-        data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (
-                       str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nFinal Kills: " + str(
-        data["final_kills"]) + "\nTreasures Destroyed: " + str(data["treasure_destroyed"]) + "\nKDR: " + str(
-        kdr) + "```")
-
+    await ctx.send("**Treasure Wars stats for " + username + "**\n```py\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nFinal Kills: " + str(data["final_kills"]) + "\nTreasures Destroyed: " + str(data["treasure_destroyed"]) + "\nKDR: " + str(kdr)+ "```")
 
 @client.command(aliases=['sg'])
 async def survivalgames(ctx, username):
@@ -133,19 +87,16 @@ async def survivalgames(ctx, username):
     losses = data["played"] - data["victories"]
     win_loss = (data["victories"] / data["played"]) * 100
     kdr = data["kills"] / losses
-    await ctx.send("**Survival Games stats for " + username + "**\n```py\nXP: " + str(data["xp"]) + "\nWins: " + str(
-        data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (
-                       str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr) + "```")
-
+    await ctx.send("**Survival Games stats for " + username + "**\n```py\nXP: " + str(data["xp"]) + "\nWins: " + str(data["victories"]) + "\nLosses: " + str(losses) + "\nPlayed: " + str(data["played"]) + "\nWin rate: " + (str(win_loss)) + "%" + "\nKills: " + str(data["kills"]) + "\nKDR: " + str(kdr) + "```")
 
 @client.command(aliases=['swlb'])
 async def skywarsleaderboard(ctx):
     print("Connecting to api.playhive.com...")
     print("Requested Game: Skywars Leaderboard")
     json_data = requests.get("https://api.playhive.com/v0/game/all/sky")
-    print("Connected! Response status code: " + str(json_data.status_code))
+    print("Connected! Response status code: "  + str(json_data.status_code))
     print("JSON: " + str(json_data.json()))
-    data = json.loads(json_data.text)  # should return a list
+    data = json.loads(json_data.text) # should return a list
     print("Python:")
     print(data)
     print("Data type: " + str(type(data)))
@@ -161,7 +112,6 @@ async def skywarsleaderboard(ctx):
                    + "\n#9 " + data[8]['username'] + "(" + str(data[8]['victories']) + " Wins)"
                    + "\n#10 " + data[9]['username'] + "(" + str(data[9]['victories']) + " Wins)```")
 
-
 @client.command(aliases=['twlb'])
 async def treasurewarsleaderboard(ctx):
     print("Connecting to api.playhive.com...")
@@ -169,7 +119,7 @@ async def treasurewarsleaderboard(ctx):
     json_data = requests.get("https://api.playhive.com/v0/game/all/wars")
     print("Connected! Response status code: " + str(json_data.status_code))
     print("JSON: " + str(json_data.json()))
-    data = json.loads(json_data.text)  # should return a list
+    data = json.loads(json_data.text) # should return a list
     print("Python:")
     print(data)
     print("Data type: " + str(type(data)))
@@ -185,7 +135,6 @@ async def treasurewarsleaderboard(ctx):
                    + "\n#9 " + data[8]['username'] + "(" + str(data[8]['victories']) + " Wins)"
                    + "\n#10 " + data[9]['username'] + "(" + str(data[9]['victories']) + " Wins)```")
 
-
 @client.command(aliases=['sglb'])
 async def survivalgamesleaderboard(ctx):
     print("Connecting to api.playhive.com...")
@@ -193,7 +142,7 @@ async def survivalgamesleaderboard(ctx):
     json_data = requests.get("https://api.playhive.com/v0/game/all/sg")
     print("Connected! Response status code: " + str(json_data.status_code))
     print("JSON: " + str(json_data.json()))
-    data = json.loads(json_data.text)  # should return a list
+    data = json.loads(json_data.text) # should return a list
     print("Python:")
     print(data)
     print("Data type: " + str(type(data)))
@@ -208,7 +157,6 @@ async def survivalgamesleaderboard(ctx):
                    + "\n#8 " + data[7]['username'] + "(" + str(data[7]['victories']) + " Wins)"
                    + "\n#9 " + data[8]['username'] + "(" + str(data[8]['victories']) + " Wins)"
                    + "\n#10 " + data[9]['username'] + "(" + str(data[9]['victories']) + " Wins)```")
-
 
 @client.command()
 async def pvp(ctx, username):
@@ -226,66 +174,52 @@ async def pvp(ctx, username):
     sg_deaths = sg_data['played'] - sg_data['victories']
     total_deaths = sw_deaths + sg_deaths + tw_data['deaths']
     total_kdr = total_kills / total_deaths
-    await ctx.send(
-        "**Whole-network PvP stats for " + username + "**\n```py\nKills: " + str(total_kills) + "\nDeaths: " + str(
-            total_deaths) + "\nKDR: " + str(total_kdr) + "```\nStats for the entire Hive network.")
-
+    await ctx.send("**Whole-network PvP stats for " + username + "**\n```py\nKills: " + str(total_kills) + "\nDeaths: " + str(total_deaths) + "\nKDR: " + str(total_kdr) + "```\nStats for the entire Hive network.")
 
 @client.command()
 async def botstats(ctx):
     await ctx.send("Bot is in " + str(len(client.guilds)) + " servers!")
-
 
 @survivalgames.error
 async def skywars_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Usage: ```html\nhive!survivalgames <Username>\n```")
 
-
 @skywars.error
 async def skywars_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Usage: ```html\nhive!skywars <Username>\n```")
-
 
 @treasurewars.error
 async def treasurewars_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Usage: ```html\nhive!treasurewars <Username>\n```")
 
-
 @client.command()
 async def invite(ctx):
     await ctx.send("**Hive stats bot (unofficial)**\nAdd to your server: "
                    "https://discord.com/api/oauth2/authorize?client_id=797497827118284860&permissions=8&scope=bot")
-
 
 @pvp.error
 async def pvp_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Usage: ```html\nhive!pvp <Username>\n```")
 
-
 @client.command(aliases=['fb'])
 async def feedback(ctx, *, message):
     owner = client.get_user(561492314862780427)
-    await owner.send(ctx.author.name + "#" + str(ctx.author.discriminator) + "(" + str(
-        ctx.author.id) + ")" " sent feedback: " + message)
-    await ctx.send(
-        "**Hive stats bot (unofficial)**\n```ahk\nFeedback sent! Thanks!\n\"" + message + "\"\nPlease don\'t spam it!```")
-
+    await owner.send(ctx.author.name + "#" + str(ctx.author.discriminator) + "(" + str(ctx.author.id) + ")" " sent feedback: " + message)
+    await ctx.send("**Hive stats bot (unofficial)**\n```ahk\nFeedback sent! Thanks!\n\"" + message + "\"\nPlease don\'t spam it!```")
 
 @feedback.error
 async def feedback_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Usage: ```html\nhive!feedback <Message>\n```")
 
-
 @asay.error
 async def asay_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Usage: ```html\nhive!asay <Message>\n```")
-
 
 @client.command()
 async def help(ctx):
@@ -307,9 +241,4 @@ async def help(ctx):
                    "\nVote on <https://top.gg/bot/797497827118284860/vote>, then type hive!checkvote to get the Voter role in our support server!\nCheck out Anata, our partner bot! <https://bit.ly/3nL4SYG>")
 
 
-@app.route('/server_count', methods=['GET'])
-def server_count():
-    formatted_server_count = {
-        "server_count": len(client.guilds)
-    }
-    return jsonify(formatted_server_count)
+client.run()
