@@ -241,4 +241,4 @@ async def help(ctx):
                    "\nVote on <https://top.gg/bot/797497827118284860/vote>, then type hive!checkvote to get the Voter role in our support server!\nCheck out Anata, our partner bot! <https://bit.ly/3nL4SYG>")
 
 
-client.run(os.eviron['TOKEN'])
+client.run(os.environ['token'])
