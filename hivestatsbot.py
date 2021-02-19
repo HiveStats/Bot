@@ -8,18 +8,29 @@ import flask
 from flask import request, jsonify
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+import threading
+def discord_thread_function(name):
+    global client
+    global intents
+    global dbl_client
+    intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
+    client = commands.Bot(command_prefix = ['Hive!', 'hive!'], intents = intents)
+    client.remove_command("help")
+    dbl_client = dbl.DBLClient(client, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NzQ5NzgyNzExODI4NDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjEzMjQwNDE1fQ.JopXgJkPCcWxfhnE4qRrsupUEqVkP3p9F3hUKgxF4Jw", True)
+    client.run(os.environ['token'])
 
-intents = discord.Intents(messages = True, guilds = True, reactions = True, members = True, presences = True)
-client = commands.Bot(command_prefix = ['Hive!', 'hive!'], intents = intents)
-client.remove_command("help")
-dbl_client = dbl.DBLClient(client, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NzQ5NzgyNzExODI4NDg2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNjEzMjQwNDE1fQ.JopXgJkPCcWxfhnE4qRrsupUEqVkP3p9F3hUKgxF4Jw", True)
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
-limiter = Limiter(
-    app,
-    key_func=get_remote_address,
-    default_limits=["200 per day", "60 per hour", "1 per minute"]
+def api_thread_function(name):
+    global app
+    global limiter
+    app = flask.Flask(__name__)
+    app.config["DEBUG"] = True
+    limiter = Limiter(
+        app,
+        key_func=get_remote_address,
+        default_limits=["200 per day", "60 per hour", "1 per minute"]
 )
+    app.run()
+
 
 @client.event
 async def on_ready():
@@ -258,6 +269,8 @@ def server_count():
     }
     return jsonify(formatted_server_count)
 
+discord_thread = threading.Thread(target=discord_thread_function, args=(1,))
+discord_thread.start()
 
-client.run(os.environ['token'])
-app.run(port=5000)
+api_thread = threading.Thread(target=api_thread_function, args=(2,))
+api_thread.start()
