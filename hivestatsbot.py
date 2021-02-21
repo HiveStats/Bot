@@ -28,7 +28,7 @@ async def checkvote(ctx):
         else:
             await ctx.send("You voted, but you're not in our support server! You should join! https://discord.com/invite/FpY5FUSFXq")
     else:
-        await ctx.send("You didn't vote, please vote at https://top.gg/bot/797497827118284860/vote!")
+        await ctx.send("You didn't vote, please vote: https://top.gg/bot/797497827118284860/vote")
 
 @client.command()
 async def asay(ctx, *, message):
